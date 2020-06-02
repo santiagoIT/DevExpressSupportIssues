@@ -1,0 +1,31 @@
+<Window x:Class="DXGrid_AttributesBasedValidation.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="MainWindow" Height="350" Width="525" xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid"
+        xmlns:dxmvvm="http://schemas.devexpress.com/winfx/2008/xaml/mvvm">
+  <Grid>
+    <Grid.RowDefinitions>
+      <RowDefinition Height="*"/>
+      <RowDefinition Height="Auto"></RowDefinition>
+    </Grid.RowDefinitions>
+    <dxg:GridControl Name="grid" ItemsSource="{Binding Items}" SelectionMode="Row">
+      <dxg:GridControl.Columns>
+        <dxg:GridColumn FieldName="FirstName" />
+        <dxg:GridColumn FieldName="LastName" />
+
+
+      </dxg:GridControl.Columns>
+      <dxg:GridControl.View>
+        <dxg:TableView Name="tableView1" AutoWidth="True" AllowCommitOnValidationAttributeError="False">
+          <dxmvvm:Interaction.Behaviors>
+            <dxmvvm:ReadOnlyDependencyPropertyBindingBehavior Property="IsEditing" Binding="{Binding IsEditing, Mode=OneWayToSource}"/>
+          </dxmvvm:Interaction.Behaviors>
+        </dxg:TableView>
+
+
+      </dxg:GridControl.View>
+    </dxg:GridControl>
+
+    <CheckBox Grid.Row="1" IsEnabled="False" IsChecked="{Binding IsEditing}">Grid Control View Is Editing</CheckBox>
+  </Grid>
+</Window>
