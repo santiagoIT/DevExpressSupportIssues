@@ -1,4 +1,5 @@
 ﻿using System.Windows;
+using DevExpress.Xpf.Grid;
 using SampleProject;
 
 namespace DXGrid_AttributesBasedValidation
@@ -13,6 +14,11 @@ namespace DXGrid_AttributesBasedValidation
       InitializeComponent();
 
       DataContext = new MainViewModel();
+    }
+
+    private void Grid_OnSelectedItemChanged(object sender, SelectedItemChangedEventArgs e)
+    {
+      
     }
   }
 }

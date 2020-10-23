@@ -8,15 +8,14 @@
       <RowDefinition Height="*"/>
       <RowDefinition Height="Auto"></RowDefinition>
     </Grid.RowDefinitions>
-    <dxg:GridControl Name="grid" ItemsSource="{Binding Items}" SelectionMode="Row">
+    <dxg:GridControl Name="grid" ItemsSource="{Binding Items}" SelectionMode="Row" SelectedItems="{Binding SelectedItems}" CurrentItem="{Binding FocusedItem, Mode=TwoWay}" SelectedItemChanged="Grid_OnSelectedItemChanged">
       <dxg:GridControl.Columns>
         <dxg:GridColumn FieldName="FirstName" />
         <dxg:GridColumn FieldName="LastName" />
-
-
       </dxg:GridControl.Columns>
+
       <dxg:GridControl.View>
-        <dxg:TableView Name="tableView1" AutoWidth="True" AllowCommitOnValidationAttributeError="False">
+        <dxg:TableView Name="tableView1" AutoWidth="True" ShowValidationAttributeErrors="False" AllowCommitOnValidationAttributeError="False" ShowIndicator="False">
           <dxmvvm:Interaction.Behaviors>
             <dxmvvm:ReadOnlyDependencyPropertyBindingBehavior Property="IsEditing" Binding="{Binding IsEditing, Mode=OneWayToSource}"/>
           </dxmvvm:Interaction.Behaviors>
@@ -26,6 +25,6 @@
       </dxg:GridControl.View>
     </dxg:GridControl>
 
-    <CheckBox Grid.Row="1" IsEnabled="False" IsChecked="{Binding IsEditing}">Grid Control View Is Editing</CheckBox>
+    <Button Grid.Row="1" Command="{Binding CmdSelect}">Set Selection</Button>
   </Grid>
 </Window>
