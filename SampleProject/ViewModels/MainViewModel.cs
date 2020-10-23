@@ -1,4 +1,6 @@
-﻿using System.Collections.ObjectModel;
+﻿using System.Collections;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Windows.Input;
 using DevExpress.Mvvm;
 using SampleProject.ViewModels;
@@ -9,6 +11,8 @@ namespace SampleProject
   {
     public ObservableCollection<ItemViewModel> Items { get; } = new ObservableCollection<ItemViewModel>();
     public ObservableCollection<ItemViewModel> SelectedItems { get; } = new ObservableCollection<ItemViewModel>();
+
+    public IList<ItemViewModel> FixedSelection { get; } = new List<ItemViewModel>();
 
 
     private ItemViewModel _focusedItem;
@@ -27,10 +31,11 @@ namespace SampleProject
 
     public MainViewModel()
     {
-      Items.Add(new ItemViewModel("Dominic", "Thiem"));
-      Items.Add(new ItemViewModel("Novak", "Djokovic"));
-      Items.Add(new ItemViewModel("Roger", "Federer"));
-      Items.Add(new ItemViewModel("Rafael", "Nadal"));
+      Items.Add(new ItemViewModel(this, "Dominic", "Thiem"));
+      Items.Add(new ItemViewModel(this, "Novak", "Djokovic"));
+      Items.Add(new ItemViewModel(this, "Roger", "Federer"));
+      Items.Add(new ItemViewModel(this, "Rafael", "Nadal"));
+      Items.Add(new ItemViewModel(this, "Iga", "Swiatek"));
 
       RegisterCommands();
 
@@ -39,7 +44,22 @@ namespace SampleProject
 
     private void SelectedItems_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
     {
-      
+      SelectedItems.CollectionChanged -= SelectedItems_CollectionChanged;
+
+      try
+      {
+        foreach (var itemViewModel in FixedSelection)
+        {
+          if (!SelectedItems.Contains(itemViewModel))
+          {
+            SelectedItems.Add(itemViewModel);
+          }
+        }
+      }
+      finally
+      {
+        SelectedItems.CollectionChanged += SelectedItems_CollectionChanged;
+      }
     }
 
     #region Commands
