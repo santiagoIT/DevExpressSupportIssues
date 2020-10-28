@@ -8,17 +8,19 @@
       <RowDefinition Height="*"/>
       <RowDefinition Height="Auto"/>
       <RowDefinition Height="Auto"/>
+      <RowDefinition Height="Auto"/>
     </Grid.RowDefinitions>
     <dxg:GridControl Name="grid" ItemsSource="{Binding Items}" SelectionMode="Row" SelectedItems="{Binding SelectedItems}" CurrentItem="{Binding FocusedItem, Mode=TwoWay}" 
                      SelectedItemChanged="Grid_OnSelectedItemChanged">
       <dxg:GridControl.Columns>
-        <dxg:GridColumn Header="" FieldName="FixSelect"/>
+        <!--<dxg:GridColumn Header="" FieldName="FixSelect"/>-->
         <dxg:GridColumn FieldName="FirstName" />
         <dxg:GridColumn FieldName="LastName" />
       </dxg:GridControl.Columns>
 
       <dxg:GridControl.View>
-        <dxg:TableView Name="tableView1" AutoWidth="True" ShowValidationAttributeErrors="False" AllowCommitOnValidationAttributeError="False" ShowIndicator="False" EnableImmediatePosting="True">
+        <dxg:TableView Name="tableView1" AutoWidth="True" ShowValidationAttributeErrors="False" AllowCommitOnValidationAttributeError="False"
+                       ShowCheckBoxSelectorColumn="True" ShowIndicator="False" EnableImmediatePosting="True" RetainSelectionOnClickOutsideCheckBoxSelector="True">
           <dxmvvm:Interaction.Behaviors>
             <dxmvvm:ReadOnlyDependencyPropertyBindingBehavior Property="IsEditing" Binding="{Binding IsEditing, Mode=OneWayToSource}"/>
           </dxmvvm:Interaction.Behaviors>
@@ -30,5 +32,6 @@
 
     <TextBlock Grid.Row="1" Text="{Binding SelectedItems.Count, StringFormat='Selected object count: {0}'}"></TextBlock>
     <Button Grid.Row="2" Command="{Binding CmdSelect}">Set Selection</Button>
+    <Button Grid.Row="3" Click="ButtonBase_OnClick">Toggle selector column</Button>
   </Grid>
 </Window>

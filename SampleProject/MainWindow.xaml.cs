@@ -20,5 +20,10 @@ namespace DXGrid_AttributesBasedValidation
     {
       
     }
+
+    private void ButtonBase_OnClick(object sender, RoutedEventArgs e)
+    {
+      tableView1.ShowCheckBoxSelectorColumn = !tableView1.ShowCheckBoxSelectorColumn;
+    }
   }
 }
